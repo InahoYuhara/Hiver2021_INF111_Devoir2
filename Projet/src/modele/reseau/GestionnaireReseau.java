@@ -13,8 +13,10 @@ package modele.reseau;
  * @version Hiver 2021
  */
 
+import javafx.geometry.Pos;
 import modele.physique.Carte;
 import modele.gestionnaires.GestionnaireScenario;
+import modele.physique.Position;
 import observer.MonObservable;
 import tda.Liste;
 
@@ -101,6 +103,25 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 		for (int i = 0; i < NB_CELLULAIRES; i++){
 			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 5, 1) );
 		}
+	}
+
+	public Antenne getAntenneProche(Position position){
+		double distance = -1;
+		double petiteDistance = -1;
+		Antenne retourAntenne = null;
+		Position positionAntenne;
+
+		for (Antenne antenne : Antennes){
+			positionAntenne =  antenne.getPosition();
+			distance = positionAntenne.calculerDistance(positionAntenne, position);
+			if ( (petiteDistance == -1) || ( distance < petiteDistance) ){
+				petiteDistance = distance;
+				retourAntenne = antenne;
+			}
+
+		}
+
+		return retourAntenne;
 	}
 
 	public ArrayList<Antenne> getAntennes(){

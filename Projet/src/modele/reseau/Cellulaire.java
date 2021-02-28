@@ -44,6 +44,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public void effectuerTour(){
+
         this.seDeplacer();
     }
 
