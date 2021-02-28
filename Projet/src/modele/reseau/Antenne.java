@@ -6,10 +6,11 @@ import modele.physique.Position;
 
 public class Antenne extends ObjetPhysique implements UniteCellulaire {
 
-    private GestionnaireReseau copieGestionnaireReseau;
+    private static GestionnaireReseau copieGestionnaireReseau = GestionnaireReseau.getInstance();
 
     public Antenne( Position position ){
-        this.position = position;
+        super(position);
+        //this.position = position;
     }
 
     public double distance(Position pos1, Position pos2){

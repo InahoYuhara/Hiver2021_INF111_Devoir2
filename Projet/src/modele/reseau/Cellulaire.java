@@ -19,15 +19,12 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     private String numeroConnecte = null;
     private Antenne antenneConnecte;
     private Random rand = new Random();
-    private GestionnaireReseau copieGestionnaireReseau;
+    private static GestionnaireReseau copieGestionnaireReseau = GestionnaireReseau.getInstance();
     private Position position;
 
     public Cellulaire(String numeroLocal, Position pos, int vitesse, double deviation){
-
+        super(vitesse, deviation, pos);
         this.numeroLocal = numeroLocal;
-        this.position = pos;
-        this.vitesse = vitesse;
-        this.deviation = deviation;
 
     }
 

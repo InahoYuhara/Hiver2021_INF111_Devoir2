@@ -9,8 +9,7 @@ public abstract class ObjetPhysique  {
     }
 
     public ObjetPhysique(Position pos){
-        this.position.setY(pos.getY());
-        this.position.setX(pos.getX());
+        this.position = new Position( pos.getX(), pos.getY() );
     }
 
     public Position getPosition(){
