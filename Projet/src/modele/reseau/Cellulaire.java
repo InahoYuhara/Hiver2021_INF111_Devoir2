@@ -39,7 +39,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
         return this.numeroConnexion;
     }
 
-    public boolean verifieConnexion(){
+    public boolean estConnecte(){
         if (this.numeroConnexion == -1){
             return true;
         }

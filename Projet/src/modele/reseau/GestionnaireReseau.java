@@ -20,6 +20,7 @@ import observer.MonObservable;
 import tda.FileSChainee;
 import tda.Liste;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,12 +41,12 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 
 	Random rand = new Random();
 	Liste listeConnexions;
-	ArrayList colAntennes;
-	ArrayList colCellulaires;
+	ArrayList<Antenne> colAntennes;
+	ArrayList<Cellulaire> colCellulaires;
 
 	public GestionnaireReseau(){
-		colAntennes = new ArrayList();
-		colCellulaires = new ArrayList();
+		colAntennes = new ArrayList<Antenne>();
+		colCellulaires = new ArrayList<Cellulaire>();
 	}
 
 	/**
@@ -101,8 +102,15 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 
 	private void creeCellulaires(){
 		for (int i = 0; i < NB_CELLULAIRES; i++){
-			colAntennes.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 1, 1) );
+			colCellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 1, 1) );
 		}
 	}
-	
+
+	public ArrayList<Antenne> getAntennes(){
+		return this.colAntennes;
+	}
+
+	public ArrayList<Cellulaire> getCellulaires(){
+		return this.colCellulaires;
+	}
 }
