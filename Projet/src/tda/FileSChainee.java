@@ -15,7 +15,7 @@ public class FileSChainee<E> {
     Noeud head;
     Noeud courant;
 
-    FileSChainee(){
+    public FileSChainee(){
 
     }
 

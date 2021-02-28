@@ -1,6 +1,9 @@
 package modele.physique;
 
+import javafx.geometry.Pos;
+
 public class Position {
+
     double x;
     double y;
 
@@ -10,7 +13,12 @@ public class Position {
 
     }
 
-    public double calculerDistance(double x1, double y1, double x2, double y2){
+    public double calculerDistance(Position pos1, Position pos2 ){
+        double result = Math.sqrt(Math.pow((pos2.getX() - pos1.getX()), 2) + Math.pow((pos2.getY() - pos1.getY()), 2));
+        return result;
+    }
+
+    public double xcalculerDistance(double x1, double y1, double x2, double y2){
         double result = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
         return result;
     }

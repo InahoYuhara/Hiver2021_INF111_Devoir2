@@ -6,7 +6,7 @@ public abstract class ObjetMobile extends ObjetPhysique {
     protected int vitesse;
     protected double deviation;
 
-    ObjetMobile(){
+    public ObjetMobile(){
 
     }
 

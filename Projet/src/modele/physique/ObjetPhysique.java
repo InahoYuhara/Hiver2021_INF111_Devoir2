@@ -4,12 +4,16 @@ public abstract class ObjetPhysique  {
 
     protected Position position;
 
-    ObjetPhysique(Position pos){
+    public ObjetPhysique(){
+
+    }
+
+    public ObjetPhysique(Position pos){
         this.position.setY(pos.getY());
         this.position.setX(pos.getX());
     }
 
-    public void getPosition(){
-
+    public Position getPosition(){
+        return this.position;
     }
 }

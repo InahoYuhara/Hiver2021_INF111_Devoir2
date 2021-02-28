@@ -1,6 +1,9 @@
 package modele.reseau;
 
+import modele.communication.Message;
 import modele.physique.ObjetMobile;
+import modele.physique.Position;
+import sun.net.www.http.PosterOutputStream;
 
 import java.util.Random;
 
@@ -17,6 +20,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     private Antenne antenneConnecte;
     private Random rand = new Random();
     private GestionnaireReseau copieGestionnaireReseau;
+    private Position position;
 
     public Cellulaire(String numeroLocal, Position pos, int vitesse, double deviation){
 
@@ -36,7 +40,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public boolean verifieConnexion(){
-        if (this.numeroConnexion == null){
+        if (this.numeroConnexion == -1){
             return true;
         }
 
@@ -81,6 +85,6 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public String toString(){
-        return "(" + this.x + "," + this.y + ") " + this.numeroLocal;
+        return "(" + this.position.getX() + "," + this.position.getY() + ") " + this.numeroLocal;
     }
 }
