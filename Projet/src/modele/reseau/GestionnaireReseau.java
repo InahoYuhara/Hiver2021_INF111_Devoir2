@@ -15,18 +15,15 @@ package modele.reseau;
 
 import modele.physique.Carte;
 import modele.gestionnaires.GestionnaireScenario;
-import modele.physique.Carte;
 import observer.MonObservable;
-import tda.FileSChainee;
 import tda.Liste;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GestionnaireReseau extends MonObservable implements Runnable {
 
-	public final int PERIODE_SIMULATION = 100;
+	public final int PERIODE_SIMULATION_MS = 100;
 	public final double VITESSE = 10;
 	public final double DEVIATION_STANDARD = 0.05;
 	public final int NB_CELLULAIRES = 30;
@@ -37,16 +34,16 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 	private boolean mondeEnVie = true;
 	private static GestionnaireReseau instance = new GestionnaireReseau();
 	private static Carte carte = new Carte();
-//	private static GestionnaireScenario gestionnaireScenario = new GestionnaireScenario();
+
 
 	Random rand = new Random();
 	Liste listeConnexions;
-	ArrayList<Antenne> colAntennes;
-	ArrayList<Cellulaire> colCellulaires;
+	ArrayList<Antenne> Antennes;
+	ArrayList<Cellulaire> cellulaires;
 
 	public GestionnaireReseau(){
-		colAntennes = new ArrayList<Antenne>();
-		colCellulaires = new ArrayList<Cellulaire>();
+		Antennes = new ArrayList<Antenne>();
+		cellulaires = new ArrayList<Cellulaire>();
 	}
 
 	/**
@@ -72,7 +69,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 	@Override
 	public void run() {
 		
-		/*
+
 		creeAntennes();
 		creeCellulaires();
 		this.avertirLesObservers();
@@ -91,26 +88,26 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 
 	private void creeAntennes(){
 		for (int i = 0; i < NB_ANTENNES; i++){
-			colAntennes.add(new Antenne(carte.genererPositionAleatoire()));
+			Antennes.add(new Antenne(carte.genererPositionAleatoire()));
 		}
 	}
 
 	private void creeCellulaires(){
 		for (int i = 0; i < NB_CELLULAIRES; i++){
-			colCellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 1, 1) );
+			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 5, 1) );
 		}
 	}
 
 	public ArrayList<Antenne> getAntennes(){
-		return this.colAntennes;
+		return this.Antennes;
 	}
 
 	public ArrayList<Cellulaire> getCellulaires(){
-		return this.colCellulaires;
+		return this.cellulaires;
 	}
 }

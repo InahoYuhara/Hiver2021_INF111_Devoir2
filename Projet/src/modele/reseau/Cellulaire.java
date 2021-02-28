@@ -37,11 +37,14 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public boolean estConnecte(){
-        if (this.numeroConnexion == -1){
-            return true;
+        if (this.numeroConnexion == NON_CONNECTE){
+            return false;
         }
+        return true;
+    }
 
-        return false;
+    public void effectuerTour(){
+        this.seDeplacer();
     }
 
     public boolean comparerNumero( String numero ){
@@ -82,6 +85,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public String toString(){
-        return "(" + this.position.getX() + "," + this.position.getY() + ") " + this.numeroLocal;
+//        return "(" + this.position.getX() + "," + this.position.getY() + ") " + this.numeroLocal;
+        return "";
     }
 }
