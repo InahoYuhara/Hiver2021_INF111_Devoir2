@@ -1,38 +1,63 @@
 package modele.reseau;
 
 /**
- * Le gestionnaire réseau est responsable de gérer les connexions cellulaires et de relayer
+ * Le gestionnaire rï¿½seau est responsable de gï¿½rer les connexions cellulaires et de relayer
  * les appels, messages et fin d'appel.
  * 
- * Dans le cadre de la simulation, c'est également le gestionnaire réseau qui instancie Antennes et
- * cellulaire et qui gère l'exécution par tour des cellulaires.
+ * Dans le cadre de la simulation, c'est ï¿½galement le gestionnaire rï¿½seau qui instancie Antennes et
+ * cellulaire et qui gï¿½re l'exï¿½cution par tour des cellulaires.
  * 
- * Le gestionnaire réseau est un singleton
+ * Le gestionnaire rï¿½seau est un singleton
  * 
  * @author Fred Simard
  * @version Hiver 2021
  */
 
-
+import modele.physique.Carte;
+import modele.gestionnaires.GestionnaireScenario;
+import modele.physique.Carte;
 import observer.MonObservable;
+import tda.FileSChainee;
+import tda.Liste;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GestionnaireReseau extends MonObservable implements Runnable {
 
+	public final int PERIODE_SIMULATION = 100;
+	public final double VITESSE = 10;
+	public final double DEVIATION_STANDARD = 0.05;
+	public final int NB_CELLULAIRES = 30;
+	public final int NB_CRIMINELS = 0;
+	public final int NB_ANTENNES = 10;
+	public final int CODE_NON_CONNECTE = -1;
+
 	private boolean mondeEnVie = true;
 	private static GestionnaireReseau instance = new GestionnaireReseau();
+	private static Carte carte = new Carte();
+//	private static GestionnaireScenario gestionnaireScenario = new GestionnaireScenario();
+
+	Random rand = new Random();
+	Liste listeConnexions;
+	ArrayList colAntennes;
+	ArrayList colCellulaires;
+
+	public GestionnaireReseau(){
+		colAntennes = new ArrayList();
+		colCellulaires = new ArrayList();
+	}
 
 	/**
-	 * méthode permettant d'obtenir une référence sur le Gestionnaire Réseau
+	 * mï¿½thode permettant d'obtenir une rï¿½fï¿½rence sur le Gestionnaire Rï¿½seau
 	 * @return instance
 	 */
 	public static GestionnaireReseau getInstance() {
 		return instance;
 	}
-	
-	private GestionnaireReseau() {}
 
 	/**
-	 * permet de mettre fin à la simulation
+	 * permet de mettre fin ï¿½ la simulation
 	 * @param mondeEnVie
 	 */
 	public void finDeSimulation() {
@@ -41,7 +66,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 
 
 	/**
-	 * s'exécute en continue pour simuler le système
+	 * s'exï¿½cute en continue pour simuler le systï¿½me
 	 */
 	@Override
 	public void run() {
@@ -66,6 +91,18 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 				e.printStackTrace();
 			}
 		}*/
+	}
+
+	private void creeAntennes(){
+		for (int i = 0; i < NB_ANTENNES; i++){
+			colAntennes.add(new Antenne(carte.genererPositionAleatoire()));
+		}
+	}
+
+	private void creeCellulaires(){
+		for (int i = 0; i < NB_CELLULAIRES; i++){
+			colAntennes.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 1, 1) );
+		}
 	}
 	
 }

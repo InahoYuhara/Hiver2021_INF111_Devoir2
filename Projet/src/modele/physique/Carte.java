@@ -4,24 +4,24 @@ import java.util.Random;
 
 public class Carte {
 
-    final Position dimensionCarte = new Position(1920, 1080);
+    final Position DIMENSION_CARTE = new Position(1920, 1080);
     Random rand = new Random();
 
     public Position genererPositionAleatoire(){
-        return new Position( getRandomInRange(0, this.dimensionCarte.getX()), getRandomInRange(0, this.dimensionCarte.getY()) );
+        return new Position( getRandomInRange(0, this.DIMENSION_CARTE.getX()), getRandomInRange(0, this.DIMENSION_CARTE.getY()) );
     }
 
     public void ajusterPosition( Position p ){
         if ( p.getX() < 0 ){
-            p.setX(dimensionCarte.getX());
+            p.setX(DIMENSION_CARTE.getX());
 
-        }else if ( p.getX() > dimensionCarte.getX() ){
+        }else if ( p.getX() > DIMENSION_CARTE.getX() ){
             p.setX(0);
 
         }else if ( p.getY() < 0 ){
-            p.setY(dimensionCarte.getY());
+            p.setY(DIMENSION_CARTE.getY());
 
-        }else if (p.getY() > dimensionCarte.getY() ){
+        }else if (p.getY() > DIMENSION_CARTE.getY() ){
             p.setY(0);
         }
     }
