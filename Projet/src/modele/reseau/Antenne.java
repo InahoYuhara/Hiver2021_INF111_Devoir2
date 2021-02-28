@@ -3,14 +3,16 @@ package modele.reseau;
 import modele.communication.Message;
 import modele.physique.ObjetPhysique;
 import modele.physique.Position;
+import tda.Liste;
 
 public class Antenne extends ObjetPhysique implements UniteCellulaire {
 
     private static GestionnaireReseau copieGestionnaireReseau = GestionnaireReseau.getInstance();
+    private Liste cellulaires;
 
     public Antenne( Position position ){
         super(position);
-        //this.position = position;
+        cellulaires = new Liste();
     }
 
     public double distance(Position pos1, Position pos2){
