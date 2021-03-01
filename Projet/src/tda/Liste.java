@@ -20,14 +20,25 @@ public class Liste {
         }
 
         ajusterTailleListe();
+        nombreElement++;
         decalerHaut(index);
         liste[index] = element;
-        nombreElement++;
+
     }
 
     public Cellulaire retirer(Cellulaire cellulaire) throws Exception {
 
-        for (int i = 0; i < liste.length; i++){
+//        try{
+//            for (int i = 0; i < nombreElement; i++){
+//                if (liste[i].equals(cellulaire)){
+//                    return retirer(i);
+//                }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        for (int i = 0; i < nombreElement; i++){
             if (liste[i].equals(cellulaire)){
                 return retirer(i);
             }
@@ -59,7 +70,7 @@ public class Liste {
 
     public void decalerHaut(int index){
 
-        for (int i = nombreElement-1; i > index; i-- ){
+        for (int i = nombreElement-1; i >= index; i-- ){
             liste[i+1] = liste[i];
         }
 

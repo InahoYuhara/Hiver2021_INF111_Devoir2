@@ -25,7 +25,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     public Cellulaire(String numeroLocal, Position pos, int vitesse, double deviation){
         super(vitesse, deviation, pos);
         this.numeroLocal = numeroLocal;
-
+        effectuerTour();
     }
 
     public String getNumeroLocal(){

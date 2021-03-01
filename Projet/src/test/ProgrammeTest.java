@@ -23,9 +23,12 @@ public class ProgrammeTest {
     public static void routineTest_Array() throws Exception{
         Liste list = new Liste();
         Carte carte = new Carte();
-        for (int i = 0; i < 11; i++){
-            list.ajouter(0, new Cellulaire(GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(),2,1.2));
-        }
+//        for (int i = 0; i < 11; i++){
+//            list.ajouter(0, new Cellulaire(GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(),2,1.2));
+//        }
+
+        list.ajouter(0, new Cellulaire(GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(),2,1.2));
+
     }
 
     public void routineTest_Carte(){
