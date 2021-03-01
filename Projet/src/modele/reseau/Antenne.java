@@ -19,6 +19,14 @@ public class Antenne extends ObjetPhysique implements UniteCellulaire {
         return this.position.calculerDistance(pos1, pos2);
     }
 
+    public void ajouterCellulaire(Cellulaire cellulaire) throws Exception {
+        this.cellulaires.ajouter(0, cellulaire );
+    }
+
+    public Cellulaire retirerCellulaire(int index) throws Exception{
+        return this.cellulaires.retirer(index);
+    }
+
     @Override
     public int appeler(String numAppele, String numAppelant, Antenne antenneConnectee) {
         return 0;

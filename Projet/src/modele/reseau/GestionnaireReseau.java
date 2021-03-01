@@ -28,7 +28,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 	public final int PERIODE_SIMULATION_MS = 100;
 	public final double VITESSE = 10;
 	public final double DEVIATION_STANDARD = 0.05;
-	public final int NB_CELLULAIRES = 30;
+	public final int NB_CELLULAIRES = 1; //30;
 	public final int NB_CRIMINELS = 0;
 	public final int NB_ANTENNES = 10;
 	public final int CODE_NON_CONNECTE = -1;
