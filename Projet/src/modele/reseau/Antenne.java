@@ -33,11 +33,15 @@ public class Antenne extends ObjetPhysique implements UniteCellulaire {
 
     @Override
     public int appeler(String numAppele, String numAppelant, Antenne antenneConnectee) {
+        copieGestionnaireReseau.relayerAppel();
         return 0;
     }
 
     @Override
     public Cellulaire repondre(String numAppele, String numAppelant, int numConnexion) {
+
+        for ()
+
         return null;
     }
 

@@ -1,6 +1,7 @@
 package modele.reseau;
 
 import modele.communication.Message;
+import modele.gestionnaires.GestionnaireScenario;
 import modele.physique.ObjetMobile;
 import modele.physique.Position;
 import sun.net.www.http.PosterOutputStream;
@@ -71,11 +72,19 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
 
     @Override
     public int appeler(String numAppele, String numAppelant, Antenne antenneConnectee) {
+        this.antenneConnecte.appeler(GestionnaireScenario.obtenirNumeroStandardAlea(this.numeroLocal), this.numeroLocal, this.antenneConnecte);
         return 0;
     }
 
     @Override
     public Cellulaire repondre(String numAppele, String numAppelant, int numConnexion) {
+
+        if (this.numeroConnexion == NON_CONNECTE){
+            this.numeroConnecte = numAppelant;
+            this.numeroConnexion = numConnexion;
+            return this;
+        }
+
         return null;
     }
 

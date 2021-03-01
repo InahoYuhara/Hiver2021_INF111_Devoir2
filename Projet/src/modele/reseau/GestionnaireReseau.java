@@ -93,6 +93,12 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 		}
 	}
 
+	public void relayerAppel(){
+		//Obtiens un num/ro de connexion unique.
+
+
+	}
+
 	private void creeAntennes(){
 		for (int i = 0; i < NB_ANTENNES; i++){
 			Antennes.add(new Antenne(carte.genererPositionAleatoire()));
