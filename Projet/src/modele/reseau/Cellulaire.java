@@ -4,7 +4,6 @@ import modele.communication.Message;
 import modele.gestionnaires.GestionnaireScenario;
 import modele.physique.ObjetMobile;
 import modele.physique.Position;
-import sun.net.www.http.PosterOutputStream;
 
 import java.util.Random;
 
@@ -23,10 +22,12 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     private static GestionnaireReseau copieGestionnaireReseau = GestionnaireReseau.getInstance();
     private Position position;
 
-    public Cellulaire(String numeroLocal, Position pos, int vitesse, double deviation){
+    public Cellulaire(String numeroLocal, Position pos, double vitesse, double deviation){
         super(vitesse, deviation, pos);
         this.numeroLocal = numeroLocal;
-        effectuerTour();
+        connecterAntenneProche();
+
+
     }
 
     public String getNumeroLocal(){
@@ -46,21 +47,32 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
 
     public void effectuerTour(){
         this.seDeplacer();
+
+        connecterAntenneProche();
+
+        appeler(GestionnaireScenario.obtenirNumeroStandardAlea(this.numeroLocal), this.numeroLocal, this.antenneConnecte);
+//        imprimerInformations();
+    }
+
+    public void connecterAntenneProche(){
         Antenne antenneProche = copieGestionnaireReseau.getAntenneProche(this.getPosition());
+        imprimerInformations();
 
         try {
             if ( this.antenneConnecte == null ){
 
-                    this.antenneConnecte = antenneProche.ajouterCellulaire(this);
+                this.antenneConnecte = antenneProche.ajouterCellulaire(this);
+                System.out.println("======================== PREMIERE CONNEXION==========================");
 
             }else if( this.antenneConnecte.equals(antenneProche) != true){
+                System.out.println("========================CONNEXION==========================");
                 this.antenneConnecte = antenneConnecte.retirerCellulaire(this);
                 this.antenneConnecte = antenneProche.ajouterCellulaire(this);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(this.antenneConnecte);
     }
 
     public boolean comparerNumero( String numero ){
@@ -72,7 +84,8 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
 
     @Override
     public int appeler(String numAppele, String numAppelant, Antenne antenneConnectee) {
-        this.antenneConnecte.appeler(GestionnaireScenario.obtenirNumeroStandardAlea(this.numeroLocal), this.numeroLocal, this.antenneConnecte);
+        int numeroConn = this.antenneConnecte.appeler(numAppele, this.numeroLocal, this.antenneConnecte);
+        this.numeroConnexion = numeroConn;
         return 0;
     }
 
@@ -105,6 +118,11 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
 
     @Override
     public void recevoir(Message message) {
+
+    }
+
+    public void imprimerInformations(){
+        System.out.println("(" + (int)super.position.getX() + "," + (int)super.position.getY() + ") NumeroConnexion: " + this.numeroConnexion );
 
     }
 

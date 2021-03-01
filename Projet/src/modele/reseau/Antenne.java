@@ -33,14 +33,26 @@ public class Antenne extends ObjetPhysique implements UniteCellulaire {
 
     @Override
     public int appeler(String numAppele, String numAppelant, Antenne antenneConnectee) {
-        copieGestionnaireReseau.relayerAppel();
-        return 0;
+        int numeroConnexion = copieGestionnaireReseau.relayerAppel(numAppele, numAppelant, antenneConnectee);
+        return numeroConnexion;
     }
 
     @Override
     public Cellulaire repondre(String numAppele, String numAppelant, int numConnexion) {
 
-        for ()
+        int nombreElement = this.cellulaires.getNombreElement();
+//        System.out.println("==== Antenne: " + this + " ====");
+        for (int i = 0; i < nombreElement; i++){
+            try {
+               Cellulaire cellulaire = cellulaires.getElement(i);
+               if (cellulaire.getNumeroLocal() == numAppele){
+                   return cellulaire.repondre(numAppele, numAppelant, numConnexion);
+               }
+
+            }catch (Exception e){
+                System.out.println("[loop cellulaires] Erreur");
+            }
+        }
 
         return null;
     }

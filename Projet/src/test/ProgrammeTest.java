@@ -1,12 +1,17 @@
 package test;
 
-import javafx.scene.control.Cell;
+import modele.communication.Connexion;
 import modele.gestionnaires.GestionnaireScenario;
 import modele.physique.Carte;
 import modele.physique.Position;
+import modele.reseau.Antenne;
 import modele.reseau.Cellulaire;
 import modele.reseau.GestionnaireReseau;
 import tda.Liste;
+import tda.ListeOrdonnee;
+
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgrammeTest {
 
@@ -15,8 +20,7 @@ public class ProgrammeTest {
 
     public static void main(String[] args) throws Exception {
 
-       // routineTest_ObjetMobile();
-        routineTest_Array();
+        System.out.println(GestionnaireScenario.obtenirNumeroStandardAlea("1234"));
 
     }
 

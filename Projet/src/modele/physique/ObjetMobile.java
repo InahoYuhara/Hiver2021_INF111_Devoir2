@@ -7,12 +7,12 @@ import java.util.Random;
 public abstract class ObjetMobile extends ObjetPhysique {
 
     protected double direction = 0;
-    protected int vitesse;
+    protected double vitesse;
     protected double deviation;
 
     public ObjetMobile(){}
 
-    public ObjetMobile(int vitesse, double deviation, Position position){
+    public ObjetMobile(double vitesse, double deviation, Position position){
         super(position);
         this.vitesse = vitesse;
         this.deviation = deviation;

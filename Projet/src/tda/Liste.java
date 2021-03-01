@@ -85,6 +85,19 @@ public class Liste {
         }
     }
 
+    public Cellulaire getElement(int index) throws Exception{
+
+        if ( index < 0 || index > liste.length ){
+            throw new Exception("[Liste Retirer] Index invalide " + index);
+        }
+
+        return liste[index];
+    }
+
+    public int getNombreElement(){
+        return this.nombreElement;
+    }
+
     public void sort(){
 
     }

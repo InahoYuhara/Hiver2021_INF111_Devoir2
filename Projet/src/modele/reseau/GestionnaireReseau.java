@@ -13,22 +13,24 @@ package modele.reseau;
  * @version Hiver 2021
  */
 
-import javafx.geometry.Pos;
+import modele.communication.Connexion;
 import modele.physique.Carte;
 import modele.gestionnaires.GestionnaireScenario;
 import modele.physique.Position;
 import observer.MonObservable;
 import tda.Liste;
+import tda.ListeOrdonnee;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GestionnaireReseau extends MonObservable implements Runnable {
 
 	public final int PERIODE_SIMULATION_MS = 100;
 	public final double VITESSE = 10;
 	public final double DEVIATION_STANDARD = 0.05;
-	public final int NB_CELLULAIRES = 30;
+	public final int NB_CELLULAIRES = 2;
 	public final int NB_CRIMINELS = 0;
 	public final int NB_ANTENNES = 10;
 	public final int CODE_NON_CONNECTE = -1;
@@ -39,13 +41,15 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 
 
 	Random rand = new Random();
-	Liste listeConnexions;
-	ArrayList<Antenne> Antennes;
+	//Liste listeConnexions;
+	ListeOrdonnee connexions;
+	ArrayList<Antenne> antennes;
 	ArrayList<Cellulaire> cellulaires;
 
 	public GestionnaireReseau(){
-		Antennes = new ArrayList<Antenne>();
+		antennes = new ArrayList<Antenne>();
 		cellulaires = new ArrayList<Cellulaire>();
+		connexions = new ListeOrdonnee();
 	}
 
 	/**
@@ -93,21 +97,33 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 		}
 	}
 
-	public void relayerAppel(){
+	public int relayerAppel(String numAppele, String numAppelant, Antenne antenneConnectee){
 		//Obtiens un num/ro de connexion unique.
+		AtomicInteger uniqueInt = new AtomicInteger();
+		int numeroConnexion =  uniqueInt.incrementAndGet();
 
+		for (Antenne antenne: antennes){
+			Cellulaire cellulaire = antenne.repondre(numAppele, numAppelant, numeroConnexion);
+			if (cellulaire != null){
+				this.connexions.ajouter( new Connexion( numeroConnexion, antenneConnectee, antenne ) );
+				return numeroConnexion;
+			}
+		}
+
+		return CODE_NON_CONNECTE;
 
 	}
 
 	private void creeAntennes(){
 		for (int i = 0; i < NB_ANTENNES; i++){
-			Antennes.add(new Antenne(carte.genererPositionAleatoire()));
+			antennes.add(new Antenne(carte.genererPositionAleatoire()));
 		}
 	}
 
 	private void creeCellulaires(){
 		for (int i = 0; i < NB_CELLULAIRES; i++){
-			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 5, 1) );
+			System.out.println(i);
+			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), VITESSE, DEVIATION_STANDARD) );
 		}
 	}
 
@@ -117,7 +133,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 		Antenne retourAntenne = null;
 		Position positionAntenne;
 
-		for (Antenne antenne : Antennes){
+		for (Antenne antenne : antennes){
 			positionAntenne =  antenne.getPosition();
 			distance = positionAntenne.calculerDistance(positionAntenne, position);
 			if ( (petiteDistance == -1) || ( distance < petiteDistance) ){
@@ -131,7 +147,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 	}
 
 	public ArrayList<Antenne> getAntennes(){
-		return this.Antennes;
+		return this.antennes;
 	}
 
 	public ArrayList<Cellulaire> getCellulaires(){
