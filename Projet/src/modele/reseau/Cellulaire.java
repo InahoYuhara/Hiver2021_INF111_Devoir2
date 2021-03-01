@@ -45,13 +45,21 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
 
     public void effectuerTour(){
         this.seDeplacer();
-        /*Appelle la methode pour savoir quelle antenne est la plus proche. Si elle n'est pas la plus
-        * proche, se deconnecte de l'antenne et se connecte a l'autre.*/
+        Antenne antenneProche = copieGestionnaireReseau.getAntenneProche(this.getPosition());
 
-//        System.out.println(this.getPosition());
-//        Position MaPosition = this.getPosition();
-//        System.out.println("=== " + MaPosition);
-        System.out.println(copieGestionnaireReseau.getAntenneProche(this.getPosition()));
+        try {
+            if ( this.antenneConnecte == null ){
+
+                    this.antenneConnecte = antenneProche.ajouterCellulaire(this);
+
+            }else if( this.antenneConnecte.equals(antenneProche) != true){
+                this.antenneConnecte = antenneConnecte.retirerCellulaire(this);
+                this.antenneConnecte = antenneProche.ajouterCellulaire(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(this.antenneConnecte);
     }
 
     public boolean comparerNumero( String numero ){
@@ -92,7 +100,7 @@ public class Cellulaire extends ObjetMobile implements UniteCellulaire {
     }
 
     public String toString(){
-        return "(" + this.position.getX() + "," + this.position.getY() + ") " + this.numeroLocal;
+        return "(" + super.position.getX() + "," + super.position.getY() + ") " + this.numeroLocal;
 
     }
 }

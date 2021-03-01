@@ -25,7 +25,18 @@ public class Liste {
         nombreElement++;
     }
 
-    public Cellulaire retirer(int index) throws Exception{
+    public Cellulaire retirer(Cellulaire cellulaire) throws Exception {
+
+        for (int i = 0; i < liste.length; i++){
+            if (liste[i].equals(cellulaire)){
+                return retirer(i);
+            }
+        }
+
+        return null;
+    }
+
+    private Cellulaire retirer(int index) throws Exception{
 
         if ( index < 0 || index > liste.length ){
             throw new Exception("[Liste Retirer] Index invalide " + index);
@@ -40,7 +51,7 @@ public class Liste {
 
     public void decalerBas(int index){
 
-        for (int i =  index; i < liste.length; i++ ){
+        for (int i =  index; i < nombreElement; i++ ){
             liste[i] = liste[i+1];
         }
 
@@ -48,7 +59,7 @@ public class Liste {
 
     public void decalerHaut(int index){
 
-        for (int i = liste.length-1; i > index; i-- ){
+        for (int i = nombreElement-1; i > index; i-- ){
             liste[i+1] = liste[i];
         }
 
@@ -61,5 +72,9 @@ public class Liste {
             System.arraycopy(liste, 0, nouvelleListe, 0, nombreElement);
             liste = nouvelleListe;
         }
+    }
+
+    public void sort(){
+
     }
 }

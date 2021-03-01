@@ -101,7 +101,7 @@ public class GestionnaireReseau extends MonObservable implements Runnable {
 
 	private void creeCellulaires(){
 		for (int i = 0; i < NB_CELLULAIRES; i++){
-			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 5, 1) );
+			cellulaires.add( new Cellulaire( GestionnaireScenario.obtenirNouveauNumeroStandard(), carte.genererPositionAleatoire(), 15, 1) );
 		}
 	}
 
